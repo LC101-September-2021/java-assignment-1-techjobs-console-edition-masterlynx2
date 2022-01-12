@@ -1,3 +1,5 @@
+package org.launchcode.techjobs.console;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -6,7 +8,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,8 +16,8 @@ import java.util.List;
  */
 public class JobData {
 
-    private static final String DATA_FILE = "src/main/resources/job_data.csv";
-    private static boolean isDataLoaded = false;
+    private static final String DATA_FILE = "resources/job_data.csv";
+    private static Boolean isDataLoaded = false;
 
     private static ArrayList<HashMap<String, String>> allJobs;
 
@@ -42,9 +43,6 @@ public class JobData {
             }
         }
 
-        // Bonus mission: sort the results
-        Collections.sort(values);
-
         return values;
     }
 
@@ -53,8 +51,7 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-        // Bonus mission; normal version returns allJobs
-        return new ArrayList<>(allJobs);
+        return allJobs;
     }
 
     /**
@@ -79,7 +76,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -87,20 +84,24 @@ public class JobData {
         return jobs;
     }
 
-    /**
-     * Search all columns for the given term
-     *
-     * @param value The search term to look for
-     * @return      List of all jobs with at least one field containing the value
-     */
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
 
-        // load data, if not already loaded
         loadData();
 
-        // TODO - implement this method
-        return null;
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+            for (String path : row.values()) {
+                if (path.toLowerCase().contains(value.toLowerCase())) {
+                    if (!jobs.contains(row)) {
+                        jobs.add(row);
+                    }
+                }
+            }
+        }
+        return jobs;
     }
+
 
     /**
      * Read in data from a CSV file and store it in a list

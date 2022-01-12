@@ -1,16 +1,20 @@
+package org.launchcode.techjobs.console;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import static org.launchcode.techjobs.console.JobData.findByValue;
 
 /**
  * Created by LaunchCode
  */
 public class TechJobs {
 
-    static Scanner in = new Scanner(System.in);
+    private static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -30,11 +34,9 @@ public class TechJobs {
         // Allow the user to search until they manually quit
         while (true) {
 
-            String actionChoice = getUserSelection("View jobs by (type 'x' to quit):", actionChoices);
+            String actionChoice = getUserSelection("View jobs by:", actionChoices);
 
-            if (actionChoice == null) {
-                break;
-            } else if (actionChoice.equals("list")) {
+            if (actionChoice.equals("list")) {
 
                 String columnChoice = getUserSelection("List", columnChoices);
 
@@ -58,11 +60,12 @@ public class TechJobs {
                 String searchField = getUserSelection("Search by:", columnChoices);
 
                 // What is their search term?
-                System.out.println("\nSearch term:");
+                System.out.println("\nSearch term: ");
+
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    printJobs(JobData.findByValue(searchTerm));
+                    printJobs(JobData.findByValue(searchField));
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -73,13 +76,13 @@ public class TechJobs {
     // ﻿Returns the key of the selected item from the choices Dictionary
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
-        int choiceIdx = -1;
+        Integer choiceIdx;
         Boolean validChoice = false;
         String[] choiceKeys = new String[choices.size()];
 
         // Put the choices in an ordered structure so we can
         // associate an integer with each one
-        int i = 0;
+        Integer i = 0;
         for (String choiceKey : choices.keySet()) {
             choiceKeys[i] = choiceKey;
             i++;
@@ -90,20 +93,12 @@ public class TechJobs {
             System.out.println("\n" + menuHeader);
 
             // Print available choices
-            for (int j = 0; j < choiceKeys.length; j++) {
+            for (Integer j = 0; j < choiceKeys.length; j++) {
                 System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
             }
 
-            if (in.hasNextInt()) {
-                choiceIdx = in.nextInt();
-                in.nextLine();
-            } else {
-                String line = in.nextLine();
-                boolean shouldQuit = line.equals("x");
-                if (shouldQuit) {
-                    return null;
-                }
-            }
+            choiceIdx = in.nextInt();
+            in.nextLine();
 
             // Validate user's input
             if (choiceIdx < 0 || choiceIdx >= choiceKeys.length) {
@@ -112,14 +107,30 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
     }
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        int numJob = 0;
+        ArrayList<HashMap<String, String>> jobs = someJobs;
+        for (HashMap<String, String> job : jobs) {
+            System.out.println("\n...................");
 
-        System.out.println("printJobs is not implemented yet");
+
+            for (Map.Entry<String, String> printJobs : job.entrySet()) {
+                System.out.println(printJobs.getKey() + ": " + printJobs.getValue());
+
+            }
+            numJob++;
+        }
+        System.out.println("....................");
+        if (numJob == 0) {
+            System.out.println("there are no jobs with that reference");
+        } else {
+            System.out.println("there are " + numJob + "in this list.");
+        }
     }
 }
