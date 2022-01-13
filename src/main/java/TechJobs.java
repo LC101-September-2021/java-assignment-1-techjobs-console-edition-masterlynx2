@@ -122,18 +122,20 @@ public class TechJobs {
 
         ArrayList<HashMap<String, String>> jobs = someJobs;
         for (HashMap<String, String> job : jobs) {
-            System.out.println("\n*****");
+
 
 
             for (Map.Entry<String, String> printJobs : job.entrySet()) {
+                System.out.println("\n*****");
                 System.out.println(printJobs.getKey() + ": " + printJobs.getValue());
+                System.out.println("*****");
                 if(printJobs.equals("")){
-                    System.out.println("there is no jobs with that reference.");
+                    System.out.println("[No Results]");
                 }
             }
 
         }
-        System.out.println("*****");
+        //System.out.println("*****");
 //        if (numJob == 0) {
 //            System.out.println("there are no jobs with that reference");
 //        } else {
