@@ -1,20 +1,16 @@
-package org.launchcode.techjobs.console;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import static org.launchcode.techjobs.console.JobData.findByValue;
 
 /**
  * Created by LaunchCode
  */
 public class TechJobs {
 
-    private static Scanner in = new Scanner(System.in);
+    static Scanner in = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main (String[] args) {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -34,9 +30,11 @@ public class TechJobs {
         // Allow the user to search until they manually quit
         while (true) {
 
-            String actionChoice = getUserSelection("View jobs by:", actionChoices);
+            String actionChoice = getUserSelection("View jobs by (type 'x' to quit):", actionChoices);
 
-            if (actionChoice.equals("list")) {
+            if (actionChoice == null) {
+                break;
+            } else if (actionChoice.equals("list")) {
 
                 String columnChoice = getUserSelection("List", columnChoices);
 
@@ -60,12 +58,11 @@ public class TechJobs {
                 String searchField = getUserSelection("Search by:", columnChoices);
 
                 // What is their search term?
-                System.out.println("\nSearch term: ");
-
+                System.out.println("\nSearch term:");
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    printJobs(JobData.findByValue(searchField));
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -76,13 +73,13 @@ public class TechJobs {
     // ﻿Returns the key of the selected item from the choices Dictionary
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
-        Integer choiceIdx;
+        int choiceIdx = -1;
         Boolean validChoice = false;
         String[] choiceKeys = new String[choices.size()];
 
         // Put the choices in an ordered structure so we can
         // associate an integer with each one
-        Integer i = 0;
+        int i = 0;
         for (String choiceKey : choices.keySet()) {
             choiceKeys[i] = choiceKey;
             i++;
@@ -93,12 +90,20 @@ public class TechJobs {
             System.out.println("\n" + menuHeader);
 
             // Print available choices
-            for (Integer j = 0; j < choiceKeys.length; j++) {
+            for (int j = 0; j < choiceKeys.length; j++) {
                 System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
             }
 
-            choiceIdx = in.nextInt();
-            in.nextLine();
+            if (in.hasNextInt()) {
+                choiceIdx = in.nextInt();
+                in.nextLine();
+            } else {
+                String line = in.nextLine();
+                boolean shouldQuit = line.equals("x");
+                if (shouldQuit) {
+                    return null;
+                }
+            }
 
             // Validate user's input
             if (choiceIdx < 0 || choiceIdx >= choiceKeys.length) {
@@ -107,7 +112,7 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while (!validChoice);
+        } while(!validChoice);
 
         return choiceKeys[choiceIdx];
     }
@@ -130,7 +135,7 @@ public class TechJobs {
         if (numJob == 0) {
             System.out.println("there are no jobs with that reference");
         } else {
-            System.out.println("there are " + numJob + "in this list.");
+            System.out.println("there are " + numJob + " in this list.");
         }
     }
 }
