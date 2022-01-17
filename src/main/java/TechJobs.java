@@ -125,7 +125,7 @@ public class TechJobs {
         }
         ArrayList<HashMap<String, String>> jobs = someJobs;
         for (HashMap<String, String> job : jobs) {
-            System.out.println("*****");
+            System.out.print("*****");
             for (Map.Entry<String, String> printJobs : job.entrySet()) {
                 System.out.println(printJobs.getKey().trim()+":"+printJobs.getValue().trim());
 //
