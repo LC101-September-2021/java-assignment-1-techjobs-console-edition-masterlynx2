@@ -127,7 +127,7 @@ public class TechJobs {
         ArrayList<HashMap<String, String>> jobs = someJobs;
         for (HashMap<String, String> job : jobs) {
 
-            System.out.println("\n*****");
+            System.out.println("*****");
 
 
             for (Map.Entry<String, String> printJobs : job.entrySet()) {
