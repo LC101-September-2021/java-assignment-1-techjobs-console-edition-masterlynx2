@@ -87,7 +87,7 @@ public class TechJobs {
 
         do {
 
-            //System.out.println("\n" + menuHeader);
+            System.out.println("\n" + menuHeader);
 
             // Print available choices
             for (int j = 0; j < choiceKeys.length; j++) {
@@ -128,7 +128,7 @@ public class TechJobs {
         for (HashMap<String, String> job : jobs) {
             System.out.println("*****");
             for (Map.Entry<String, String> printJobs : job.entrySet()) {
-                System.out.println(printJobs.getKey().trim() + ":" + printJobs.getValue().trim());
+                System.out.println(printJobs.getKey().trim()+":"+printJobs.getValue().trim());
 //
 //                if(printJobs.equals("")){
 //                    SSystem.out.println(printJobs.getKey() + ": " + printJobs.getValue());
