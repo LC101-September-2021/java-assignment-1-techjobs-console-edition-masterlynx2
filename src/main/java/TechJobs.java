@@ -123,7 +123,6 @@ public class TechJobs {
         if(someJobs.size()== 0){
             System.out.println("No Results");
         }
-
         ArrayList<HashMap<String, String>> jobs = someJobs;
         for (HashMap<String, String> job : jobs) {
             System.out.println("*****");
