@@ -117,9 +117,41 @@ public class TechJobs {
         return choiceKeys[choiceIdx];
     }
 
+
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        if(someJobs.size()== 0){
+            System.out.print("No Results");
+        }
 
-        System.out.println("printJobs is not implemented yet");
+        ArrayList<HashMap<String, String>> jobs = someJobs;
+        for (HashMap<String, String> job : jobs) {
+
+            System.out.print("\n*****\n");
+
+
+            for (Map.Entry<String, String> printJobs : job.entrySet()) {
+                System.out.println(printJobs.getKey() + ": " + printJobs.getValue());
+//
+//                if(printJobs.equals("")){
+//                    SSystem.out.println(printJobs.getKey() + ": " + printJobs.getValue());
+//                  };
+//                }
+
+            }
+            System.out.println("*****");
+//            numJob++;
+//            if(numJob != 0 ) {
+//                System.out.println("***s**\n");
+//            }else if(numJob == 0){
+//                System.out.println("[No Results]");
+//            }
+//        }
+
+//        if (numJob == 0) {
+//            System.out.println("there are no jobs with that reference");
+//        } else {
+//            System.out.println("there are " + numJob + " in this list.");
+//        }
     }
-}
+}}
