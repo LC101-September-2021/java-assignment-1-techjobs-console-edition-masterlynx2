@@ -145,7 +145,7 @@ public class TechJobs {
 
             }
 
-             result +="+++++";
+             result +="*****";
             System.out.println(result);
             //System.out.println("\n*****");
 //            numJob++;
