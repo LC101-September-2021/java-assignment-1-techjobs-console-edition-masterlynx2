@@ -124,7 +124,7 @@ public class TechJobs {
         String result = "\n*****";
         if(someJobs.size()== 0){
             System.out.println("No Results");
-                return;
+
         }
 
         ArrayList<HashMap<String, String>> jobs = someJobs;
