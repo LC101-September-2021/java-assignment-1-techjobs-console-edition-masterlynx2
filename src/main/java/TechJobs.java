@@ -146,7 +146,7 @@ public class TechJobs {
             }
 
              result +="*****";
-            System.out.println(result);
+            System.out.print(result);
             //System.out.println("\n*****");
 //            numJob++;
 //            if(numJob != 0 ) {
